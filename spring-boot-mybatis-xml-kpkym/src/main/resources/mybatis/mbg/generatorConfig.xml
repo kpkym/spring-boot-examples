@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- 引入配置文件 -->
+    <properties resource="mybatis/mbg/mbg.properties"/>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <!--toString-->
+        <!--<plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>-->
+        <!--Lombok-->
+        <plugin type="com.softwareloop.mybatis.generator.plugins.LombokPlugin">
+
+            <!-- enable annotations -->
+            <property name="builder" value="true"/>
+            <!-- annotation's option(boolean) -->
+            <property name="builder.fluent" value="true"/>
+            <!-- annotation's option(String) -->
+            <property name="builder.builderMethodName" value="myBuilder"/>
+
+            <property name="accessors" value="true"/>
+            <!-- annotation's option(array of String) -->
+            <property name="accessors.prefix" value="m_, _"/>
+
+            <!-- disable annotations -->
+            <property name="allArgsConstructor" value="true"/>
+            <property name="noArgsConstructor" value="true"/>
+        </plugin>
+
+        <!-- 不生成注释 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!-- 配置数据库连接信息 -->
+        <jdbcConnection driverClass="${mbg.driverClass}" connectionURL="${mbg.jdbcUrl}" userId="${mbg.user}"
+                        password="${mbg.password}">
+            <property name="nullCatalogMeansCurrent" value="true" />
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 指定java bean 生成的位置 -->
+        <javaModelGenerator targetPackage="${mbg.beanPackage}" targetProject="${mbg.beanLoc}">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- 指定sql映射文件生成的位置 -->
+        <sqlMapGenerator targetPackage="${mbg.mapperPackage}" targetProject="${mbg.mapperLoc}">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!-- 指定dao 接口生成的位置 mapper 接口 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${mbg.daoPackage}" targetProject="${mbg.daoLoc}">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <!-- 指定每个表的生成策略 -->
+        <table tableName="user" />
+    </context>
+</generatorConfiguration>
